@@ -10,15 +10,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Store {
 
+    private static AtomicInteger postID = new AtomicInteger(4);
+
+    private static AtomicInteger candidateId = new AtomicInteger(4);
+
     private static final Store INST = new Store();
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
-
-    private static AtomicInteger POST_ID = new AtomicInteger(4);
-
-    private static AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
 
     private Store() {
         posts.put(1, new Post(1, "Junior Java Job", "easy"));
@@ -34,13 +34,25 @@ public class Store {
     }
 
     public void savePost(Post post) {
-        post.setId(POST_ID.incrementAndGet());
+        if (post.getId() == 0) {
+            post.setId(postID.incrementAndGet());
+        }
         posts.put(post.getId(), post);
     }
 
     public void saveCandidate(Candidate candidate) {
-        candidate.setId(CANDIDATE_ID.incrementAndGet());
+        if (candidate.getId() == 0) {
+            candidate.setId(candidateId.incrementAndGet());
+        }
         candidates.put(candidate.getId(), candidate);
+    }
+
+    public Post findPostById(int id) {
+        return posts.get(id);
+    }
+
+    public Candidate findCandidateById(int id) {
+        return candidates.get(id);
     }
 
     public Collection<Post> findAllPosts() {
@@ -50,6 +62,5 @@ public class Store {
     public Collection<Candidate> findAllCandidates() {
         return candidates.values();
     }
-
 
 }
