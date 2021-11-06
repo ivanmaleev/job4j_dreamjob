@@ -22,15 +22,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
-        <url-pattern>/post/save</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PostServlet</servlet-name>
         <url-pattern>/posts.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>CandidateServlet</servlet-name>
-        <url-pattern>/candidate/save</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CandidateServlet</servlet-name>
