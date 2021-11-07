@@ -5,7 +5,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.store.Store;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -14,10 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class UploadPhotoServlet extends HttpServlet {
@@ -26,7 +24,7 @@ public class UploadPhotoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         int id = Integer.parseInt(req.getParameter("id"));
-        Candidate candidate = Store.instOf().findCandidateById(id);
+        Candidate candidate = MemStore.instOf().findCandidateById(id);
         String fileName = candidate.getFileName();
         File downloadFile = null;
         if (!"".equals(fileName) && fileName != null) {
@@ -68,7 +66,7 @@ public class UploadPhotoServlet extends HttpServlet {
                     File file = new File(folder + File.separator + id + "." + extension);
                     try (FileOutputStream out = new FileOutputStream(file)) {
                         out.write(item.getInputStream().readAllBytes());
-                        Candidate candidate = Store.instOf().findCandidateById(id);
+                        Candidate candidate = MemStore.instOf().findCandidateById(id);
                         candidate.setFileName(file.getName());
                     }
                 }
