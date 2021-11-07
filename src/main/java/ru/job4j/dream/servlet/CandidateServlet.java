@@ -1,6 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.store.DbStore;
 import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.ServletException;
@@ -18,15 +19,15 @@ public class CandidateServlet extends HttpServlet {
         String delete = req.getParameter("delete");
         if (delete != null && "true".equals(delete)) {
             int id = Integer.parseInt(req.getParameter("id"));
-            Candidate candidate = MemStore.instOf().findCandidateById(id);
+            Candidate candidate = DbStore.instOf().findCandidateById(id);
             String fileName = candidate.getFileName();
             File file = new File("c:\\images\\" + File.separator + fileName);
             if (file.exists()) {
                 file.delete();
             }
-            MemStore.instOf().removeCandidate(id);
+            DbStore.instOf().removeCandidate(id);
         }
-        req.setAttribute("candidates", MemStore.instOf().findAllCandidates());
+        req.setAttribute("candidates", DbStore.instOf().findAllCandidates());
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 
@@ -34,7 +35,7 @@ public class CandidateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        MemStore.instOf().saveCandidate(
+        DbStore.instOf().saveCandidate(
                 new Candidate(
                         Integer.valueOf(req.getParameter("id")),
                         req.getParameter("name")

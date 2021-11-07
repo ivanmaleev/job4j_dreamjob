@@ -12,6 +12,12 @@ public class Candidate {
         this.name = name;
     }
 
+    public Candidate(int id, String name, String fileName) {
+        this.id = id;
+        this.name = name;
+        this.fileName = fileName;
+    }
+
     public int getId() {
         return id;
     }

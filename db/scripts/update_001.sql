@@ -5,5 +5,6 @@ create TABLE if not exists post (
 
 create TABLE if not exists candidate (
    id SERIAL PRIMARY KEY,
-   name TEXT
+   name TEXT,
+   filename TEXT
 );
