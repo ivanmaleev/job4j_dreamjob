@@ -2,7 +2,7 @@
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="java.util.Collection" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,6 +39,9 @@
                     <thead>
                     <tr>
                         <th scope="col">Названия</th>
+                        <th>Картинка</th>
+                        <th>Добавить</th>
+                        <th>Удалить</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,6 +53,11 @@
                                 </a>
                                 <c:out value="${candidate.name}"/>
                             </td>
+                            <td>
+                                <img src="<c:url value='/download?name=${candidate.fileName}'/>" width="100px" height="100px"/>
+                            </td>
+                            <td><a href="<c:url value='/uploadphoto?id=${candidate.id}'/>">Загрузить фото</a></td>
+                            <td><a href="<c:url value='/candidates.do?id=${candidate.id}&delete=true'/>">Удалить кандидата</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

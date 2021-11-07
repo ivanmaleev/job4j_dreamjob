@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Candidate {
     private int id;
     private String name;
+    private String fileName;
 
     public Candidate(int id, String name) {
         this.id = id;
@@ -25,6 +26,14 @@ public class Candidate {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override

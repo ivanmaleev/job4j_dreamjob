@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 public class CandidateServlet extends HttpServlet {
@@ -14,6 +15,17 @@ public class CandidateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        String delete = req.getParameter("delete");
+        if (delete != null && "true".equals(delete)) {
+            int id = Integer.parseInt(req.getParameter("id"));
+            Candidate candidate = Store.instOf().findCandidateById(id);
+            String fileName = candidate.getFileName();
+            File file = new File("c:\\images\\" + File.separator + fileName);
+            if (file.exists()) {
+                file.delete();
+            }
+            Store.instOf().removeCandidate(id);
+        }
         req.setAttribute("candidates", Store.instOf().findAllCandidates());
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }

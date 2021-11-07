@@ -24,9 +24,14 @@ public class Store {
         posts.put(1, new Post(1, "Junior Java Job", "easy"));
         posts.put(2, new Post(2, "Middle Java Job", "medium"));
         posts.put(3, new Post(3, "Senior Java Job", "hard"));
-        candidates.put(1, new Candidate(1, "Junior Java"));
-        candidates.put(2, new Candidate(2, "Middle Java"));
+        Candidate juniorJava = new Candidate(1, "Junior Java");
+        Candidate middleJava = new Candidate(2, "Middle Java");
+        juniorJava.setFileName("1.jpg");
+        middleJava.setFileName("2.jpg");
+        candidates.put(1, juniorJava);
+        candidates.put(2, middleJava);
         candidates.put(3, new Candidate(3, "Senior Java"));
+
     }
 
     public static Store instOf() {
@@ -63,4 +68,7 @@ public class Store {
         return candidates.values();
     }
 
+    public void removeCandidate(int id) {
+        candidates.remove(id);
+    }
 }
