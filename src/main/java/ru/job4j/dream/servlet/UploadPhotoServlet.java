@@ -29,7 +29,7 @@ public class UploadPhotoServlet extends HttpServlet {
         String fileName = candidate.getFileName();
         File downloadFile = null;
         if (!"".equals(fileName) && fileName != null) {
-            for (File file : new File("c:\\images\\").listFiles()) {
+            for (File file : new File(DbStore.getStorePath()).listFiles()) {
                 if (fileName.equals(file.getName())) {
                     downloadFile = file;
                     break;
@@ -53,7 +53,7 @@ public class UploadPhotoServlet extends HttpServlet {
         int id = Integer.parseInt(req.getParameter("id"));
         try {
             List<FileItem> items = upload.parseRequest(req);
-            File folder = new File("c:\\images\\");
+            File folder = new File(DbStore.getStorePath());
             if (!folder.exists()) {
                 folder.mkdir();
             }

@@ -33,6 +33,10 @@
         <servlet-name>UploadPhotoServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.UploadPhotoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>ru.job4j.dream.servlet.DeleteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index.do</url-pattern>
@@ -56,6 +60,10 @@
     <servlet-mapping>
         <servlet-name>UploadPhotoServlet</servlet-name>
         <url-pattern>/uploadphoto</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/deletephoto</url-pattern>
     </servlet-mapping>
 </web-app>
 

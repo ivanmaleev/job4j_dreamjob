@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Properties;
 
 public class DbStore implements Store {
+
+    private static String storePath;
+
     private static final DbStore INSTANCE = new DbStore();
 
     private final BasicDataSource pool = new BasicDataSource();
@@ -47,6 +50,24 @@ public class DbStore implements Store {
 
     private static final class Lazy {
         private static final Store INST = new DbStore();
+    }
+
+    public static String getStorePath() {
+        if (storePath == null) {
+            Properties cfg = new Properties();
+            try (BufferedReader io = new BufferedReader(
+                    new InputStreamReader(
+                            DbStore.class.getClassLoader()
+                                    .getResourceAsStream("db.properties")
+                    )
+            )) {
+                cfg.load(io);
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+            storePath = cfg.getProperty("storepath");
+        }
+        return storePath;
     }
 
     public static Store instOf() {

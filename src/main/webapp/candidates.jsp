@@ -57,7 +57,7 @@
                                 <img src="<c:url value='/download?name=${candidate.fileName}'/>" width="100px" height="100px"/>
                             </td>
                             <td><a href="<c:url value='/uploadphoto?id=${candidate.id}'/>">Загрузить фото</a></td>
-                            <td><a href="<c:url value='/candidates.do?id=${candidate.id}&delete=true'/>">Удалить кандидата</a></td>
+                            <td><a href="<c:url value='/deletephoto?id=${candidate.id}'/>">Удалить кандидата</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

@@ -1,5 +1,7 @@
 package ru.job4j.dream.servlet;
 
+import ru.job4j.dream.store.DbStore;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,7 @@ public class DownloadServlet extends HttpServlet {
             throws ServletException, IOException {
         String name = req.getParameter("name");
         File downloadFile = null;
-        for (File file : new File("c:\\images\\").listFiles()) {
+        for (File file : new File(DbStore.getStorePath()).listFiles()) {
             if (name.equals(file.getName())) {
                 downloadFile = file;
                 break;
