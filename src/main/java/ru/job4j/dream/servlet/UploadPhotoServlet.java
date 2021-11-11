@@ -4,6 +4,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import ru.job4j.dream.log.WebLogger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.store.DbStore;
 import ru.job4j.dream.store.MemStore;
@@ -74,7 +75,7 @@ public class UploadPhotoServlet extends HttpServlet {
                 }
             }
         } catch (FileUploadException e) {
-            e.printStackTrace();
+            WebLogger.getLogger().warn("File not uploaded");
         }
         doGet(req, resp);
     }
