@@ -1,6 +1,7 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import ru.job4j.dream.log.WebLogger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
@@ -32,12 +33,12 @@ public class DbStore implements Store {
         )) {
             cfg.load(io);
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            WebLogger.getLogger().error("Invalid parameters");
         }
         try {
             Class.forName(cfg.getProperty("jdbc.driver"));
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            WebLogger.getLogger().error("Driver not loaded");
         }
         pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
         pool.setUrl(cfg.getProperty("jdbc.url"));
@@ -63,7 +64,7 @@ public class DbStore implements Store {
             )) {
                 cfg.load(io);
             } catch (Exception e) {
-                throw new IllegalStateException(e);
+                WebLogger.getLogger().error("Invalid parameters");
             }
             storePath = cfg.getProperty("storepath");
         }
@@ -86,7 +87,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
         return posts;
     }
@@ -104,7 +105,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
         return candidates;
     }
@@ -142,7 +143,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
     }
 
@@ -160,7 +161,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
     }
 
@@ -177,7 +178,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
         return post;
     }
@@ -195,7 +196,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
     }
 
@@ -211,7 +212,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
         return null;
     }
@@ -229,7 +230,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
         return null;
     }
@@ -242,7 +243,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
     }
 
@@ -254,7 +255,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
-            e.printStackTrace();
+            WebLogger.getLogger().error("Connection to DB not established");
         }
     }
 }
