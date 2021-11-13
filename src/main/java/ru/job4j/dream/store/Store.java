@@ -23,7 +23,7 @@ public interface Store {
 
     void removePost(int id);
 
-    void saveUser(User user);
+    User saveUser(User user);
 
     void removeUser(User user);
 

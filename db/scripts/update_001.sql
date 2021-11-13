@@ -9,6 +9,9 @@ create TABLE if not exists candidate (
    filename TEXT
 );
 
-DELETE FROM post;
-
-DELETE FROM candidate;
+create TABLE if not exists users (
+   id SERIAL PRIMARY KEY,
+   name TEXT,
+   email TEXT,
+   password TEXT
+);

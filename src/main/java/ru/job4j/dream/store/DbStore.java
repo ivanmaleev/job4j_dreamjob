@@ -265,34 +265,58 @@ public class DbStore implements Store {
     }
 
     @Override
-    public void saveUser(User user) {
-
+    public User saveUser(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "INSERT INTO users(name, email, password) VALUES (?,?,?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Connection to DB not established", e);
+        }
+        return user;
     }
 
     @Override
     public void removeUser(User user) {
-
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM users WHERE email = ?")
+        ) {
+            ps.setString(1, user.getEmail());
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error("Connection to DB not established", e);
+        }
     }
 
     @Override
     public User findUserByEmail(String email) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users WHERE email = ?")
+        ) {
+            ps.setString(1, email);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    User user = new User();
+                    user.setName(it.getString("name"));
+                    user.setPassword(it.getString("password"));
+                    user.setEmail(it.getString("email"));
+                    user.setId(it.getInt("id"));
+                    return user;
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Connection to DB not established", e);
+        }
         return null;
-    }
-
-    public void clearDB() {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("DELETE FROM post")
-        ) {
-            ps.execute();
-        } catch (Exception e) {
-            LOG.error("Connection to DB not established", e);
-        }
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate")
-        ) {
-            ps.execute();
-        } catch (Exception e) {
-            LOG.error("Connection to DB not established", e);
-        }
     }
 }
