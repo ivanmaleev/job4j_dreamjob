@@ -8,3 +8,7 @@ create TABLE if not exists candidate (
    name TEXT,
    filename TEXT
 );
+
+DELETE FROM post;
+
+DELETE FROM candidate;

@@ -262,4 +262,21 @@ public class DbStore implements Store {
             LOG.error("Connection to DB not established", e);
         }
     }
+
+    public void clearDB() {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM post")
+        ) {
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error("Connection to DB not established", e);
+        }
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("DELETE FROM candidate")
+        ) {
+            ps.execute();
+        } catch (Exception e) {
+            LOG.error("Connection to DB not established", e);
+        }
+    }
 }
