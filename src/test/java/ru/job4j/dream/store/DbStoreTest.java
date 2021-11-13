@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNull;
 
 public class DbStoreTest {
 
-    static Connection connection;
+    private static Connection connection;
 
     @Before
     public void initConnection() {
