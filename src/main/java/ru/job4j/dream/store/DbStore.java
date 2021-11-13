@@ -5,6 +5,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -261,6 +262,21 @@ public class DbStore implements Store {
         } catch (Exception e) {
             LOG.error("Connection to DB not established", e);
         }
+    }
+
+    @Override
+    public void saveUser(User user) {
+
+    }
+
+    @Override
+    public void removeUser(User user) {
+
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        return null;
     }
 
     public void clearDB() {
