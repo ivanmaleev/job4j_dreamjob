@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="email" class="form-control" id="name" placeholder="Имя">
+    </div>
+    <div class="form-group">
+        <label for="secondname">Фамилия</label>
+        <input type="email" class="form-control" id="secondname" placeholder="Фамилия">
+    </div>
+    <div class="form-group">
+        <label for="sex">Пол</label>
+        <select class="form-control" id="sex">
+            <option>М</option>
+            <option>Ж</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="description">Описание</label>
+        <textarea class="form-control" id="description" rows="3"></textarea>
+    </div>
+    <div class="row pt-3">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Пол</th>
+                <th scope="col">Описание</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Иван</td>
+                <td>Иванов</td>
+                <td>М</td>
+                <td>просто юзер</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Петр</td>
+                <td>Петров</td>
+                <td>М</td>
+                <td>не просто юзер</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
