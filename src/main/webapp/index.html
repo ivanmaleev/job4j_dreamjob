@@ -26,12 +26,14 @@
     </script>
     <script>
         function addRow() {
-            const name = $('#name').val();
-            const secondname = $('#secondname').val();
-            const sex = $('#sex').val();
-            const description = $('#description').val();
-            $('#users tr:last').after(
-                '<tr><th scope = "row">' + '' + '</th><td>' + name + '</td><td>' + secondname + '</td><td>' + sex + '</td><td>' + description + '</td></tr>');
+            if (validate()) {
+                const name = $('#name').val();
+                const secondname = $('#secondname').val();
+                const sex = $('#sex').val();
+                const description = $('#description').val();
+                $('#users tr:last').after(
+                    '<tr><th scope = "row">' + '' + '</th><td>' + name + '</td><td>' + secondname + '</td><td>' + sex + '</td><td>' + description + '</td></tr>');
+            }
         }
     </script>
 </head>
