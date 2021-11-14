@@ -9,19 +9,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         function validate() {
-            if($('#name').val() == ''){
+            if ($('#name').val() == '') {
                 alert("Не заполнено Имя");
                 return false;
             }
-            if($('#secondname').val() == ''){
+            if ($('#secondname').val() == '') {
                 alert("Не заполнена Фамилия");
                 return false;
             }
-            if($('#description').val() == ''){
+            if ($('#description').val() == '') {
                 alert("Заполните описание");
                 return false;
             }
             return true;
+        }
+    </script>
+    <script>
+        function addRow() {
+            const name = $('#name').val();
+            const secondname = $('#secondname').val();
+            const sex = $('#sex').val();
+            const description = $('#description').val();
+            $('#users tr:last').after(
+                '<tr><th scope = "row">' + '' + '</th><td>' + name + '</td><td>' + secondname + '</td><td>' + sex + '</td><td>' + description + '</td></tr>');
         }
     </script>
 </head>
@@ -48,7 +58,7 @@
     </div>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="row pt-3">
-        <table class="table">
+        <table class="table" id="users">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -76,6 +86,7 @@
             </tbody>
         </table>
     </div>
+    <button type="button" class="btn btn-default" onclick="addRow()">Add row</button>
 </div>
 </body>
 </html>
