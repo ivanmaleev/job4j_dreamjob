@@ -17,6 +17,13 @@ public class Post {
         created = Timestamp.from(Instant.now());
     }
 
+    public Post(int id, String name, String description, Timestamp created) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.created = created;
+    }
+
     public Post(int id, String name) {
         this.id = id;
         this.name = name;
@@ -40,6 +47,10 @@ public class Post {
 
     public String getDescription() {
         return description;
+    }
+
+    public Timestamp getCreated() {
+        return created;
     }
 
     @Override

@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
-<%@ page import="ru.job4j.dream.model.Post" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="ru.job4j.dream.store.DbStore" %>
 <!doctype html>
@@ -22,7 +20,42 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        function validate() {
+            if ($('#name').val() == '') {
+                alert("Не заполнено Имя");
+                return false;
+            }
+            if ($('#cities').val() == '') {
+                alert("Не заполнен город");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <script>
+        function savecity() {
+            let cityname = $('#cities').val();
+            $('#city').val(cityname);
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8080/dreamjob/city',
+                dataType: 'json'
+            }).done(function (data) {
+                for (var city of data) {
+                    var option = new Option(city.name, city.name);
+                    $('#cities').append($(option));
+                }
+            }).fail(function (err) {
+                console.log(err);
+            });
+        });
+    </script>
     <title>Работа мечты</title>
 </head>
 <body>
@@ -47,9 +80,18 @@
                 <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
+                        <input type="text" class="form-control" name="name" id="name" value="<%=candidate.getName()%>">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="form-group">
+                        <label for="cities">Город</label>
+                        <select class="form-control" id="cities" onchange="savecity()">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="city" id="city" hidden>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="return validate();">Сохранить</button>
                 </form>
             </div>
         </div>

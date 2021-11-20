@@ -60,6 +60,16 @@
                 Сегодняшние вакансии.
             </div>
             <div class="card-body">
+                <c:forEach items="${postsToday}" var="post">
+                    <tr>
+                        <td>
+                            <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
+                                <i class="fa fa-edit mr-3"></i>
+                            </a>
+                            <c:out value="${post.name}"/>
+                        </td>
+                    </tr>
+                </c:forEach>
             </div>
         </div>
     </div>
@@ -69,6 +79,20 @@
                 Сегодняшние кандидаты.
             </div>
             <div class="card-body">
+                <c:forEach items="${candidatesToday}" var="candidate">
+                    <tr>
+                        <td>
+                            <c:out value="${candidate.name}"/>
+                        </td>
+                        <td>
+                            <c:out value="${candidate.cityName}"/>
+                        </td>
+                        <td>
+                            <img src="<c:url value='/download?name=${candidate.fileName}'/>" width="100px"
+                                 height="100px"/>
+                        </td>
+                    </tr>
+                </c:forEach>
             </div>
         </div>
     </div>

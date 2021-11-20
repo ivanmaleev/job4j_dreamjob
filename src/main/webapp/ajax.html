@@ -46,7 +46,7 @@
             dataType: 'json'
         }).done(function (data) {
             for (var email of data) {
-                $('#emailList li:last').append(`<li>${email.name}</li>`)
+                $('#emailList li:last').append('<li>${email.name}</li>`)
             }
         }).fail(function (err) {
             console.log(err);
