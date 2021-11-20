@@ -1,6 +1,5 @@
 package ru.job4j.dream.servlet;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
