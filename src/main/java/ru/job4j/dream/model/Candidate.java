@@ -8,8 +8,7 @@ public class Candidate {
     private int id;
     private String name;
     private String fileName;
-    private int cityID;
-    private String cityName;
+    private City city = new City(0, "");
     private Timestamp created;
 
     public Candidate(int id, String name) {
@@ -25,42 +24,20 @@ public class Candidate {
         created = Timestamp.from(Instant.now());
     }
 
-    public Candidate(int id, String name, String fileName, int cityID) {
-        this.id = id;
-        this.name = name;
-        this.fileName = fileName;
-        this.cityID = cityID;
-        created = Timestamp.from(Instant.now());
+    public Candidate(int id, String name, String fileName, City city) {
+        this(id, name, fileName, city, Timestamp.from(Instant.now()));
     }
 
-    public Candidate(int id, String name, String fileName, int cityID, String cityName) {
+    public Candidate(int id, String name, String fileName, City city, Timestamp created) {
         this.id = id;
         this.name = name;
         this.fileName = fileName;
-        this.cityID = cityID;
-        this.cityName = cityName;
-    }
-
-    public Candidate(int id, String name, String fileName, int cityID,
-                     String cityName, Timestamp created) {
-        this.id = id;
-        this.name = name;
-        this.fileName = fileName;
-        this.cityID = cityID;
-        this.cityName = cityName;
+        this.city = city;
         this.created = created;
     }
 
     public int getId() {
         return id;
-    }
-
-    public int getCityID() {
-        return cityID;
-    }
-
-    public void setCityID(int cityID) {
-        this.cityID = cityID;
     }
 
     public void setId(int id) {
@@ -83,12 +60,12 @@ public class Candidate {
         this.fileName = fileName;
     }
 
-    public String getCityName() {
-        return cityName;
+    public City getCity() {
+        return city;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public Timestamp getCreated() {

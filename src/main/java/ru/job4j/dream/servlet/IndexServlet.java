@@ -12,8 +12,6 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.setAttribute("candidatesToday", DbStore.instOf().findAllTodayCandidates());
-        req.setAttribute("postsToday", DbStore.instOf().findAllTodayPosts());
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 }

@@ -1,6 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.MemStore" %>
+<%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="ru.job4j.dream.store.DbStore" %>
+<%@ page import="ru.job4j.dream.model.Candidate" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
@@ -60,16 +62,16 @@
                 Сегодняшние вакансии.
             </div>
             <div class="card-body">
-                <c:forEach items="${postsToday}" var="post">
+                <table class="table">
+                    <tbody>
+                    <% for (Post post : DbStore.instOf().findAllTodayPosts()) { %>
                     <tr>
-                        <td>
-                            <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>
-                                <i class="fa fa-edit mr-3"></i>
-                            </a>
-                            <c:out value="${post.name}"/>
+                        <td><%=post.getName()%>
                         </td>
                     </tr>
-                </c:forEach>
+                    <% } %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -79,20 +81,16 @@
                 Сегодняшние кандидаты.
             </div>
             <div class="card-body">
-                <c:forEach items="${candidatesToday}" var="candidate">
+                <table class="table">
+                    <tbody>
+                    <% for (Candidate candidate : DbStore.instOf().findAllTodayCandidates()) { %>
                     <tr>
-                        <td>
-                            <c:out value="${candidate.name}"/>
-                        </td>
-                        <td>
-                            <c:out value="${candidate.cityName}"/>
-                        </td>
-                        <td>
-                            <img src="<c:url value='/download?name=${candidate.fileName}'/>" width="100px"
-                                 height="100px"/>
+                        <td><%=candidate.getName()%>
                         </td>
                     </tr>
-                </c:forEach>
+                    <% } %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

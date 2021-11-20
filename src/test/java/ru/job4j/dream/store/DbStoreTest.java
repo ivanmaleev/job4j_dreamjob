@@ -91,7 +91,7 @@ public class DbStoreTest {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
         List<City> allCities = store.findAllCities();
-        candidate.setCityID(allCities.get(0).getId());
+        candidate.setCity(allCities.get(0));
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         Collection<Candidate> colCandidates = List.of(candidateInDb);
@@ -104,7 +104,7 @@ public class DbStoreTest {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
         List<City> allCities = store.findAllCities();
-        candidate.setCityID(allCities.get(0).getId());
+        candidate.setCity(allCities.get(0));
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         assertThat(candidateInDb.getName(), is(candidate.getName()));
@@ -115,7 +115,7 @@ public class DbStoreTest {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
         List<City> allCities = store.findAllCities();
-        candidate.setCityID(allCities.get(0).getId());
+        candidate.setCity(allCities.get(0));
         store.saveCandidate(candidate);
         candidate.setName("Java Job 1");
         store.saveCandidate(candidate);
@@ -128,7 +128,7 @@ public class DbStoreTest {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
         List<City> allCities = store.findAllCities();
-        candidate.setCityID(allCities.get(0).getId());
+        candidate.setCity(allCities.get(0));
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         store.removeCandidate(candidateInDb.getId());
@@ -141,7 +141,7 @@ public class DbStoreTest {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
         List<City> allCities = store.findAllCities();
-        candidate.setCityID(allCities.get(0).getId());
+        candidate.setCity(allCities.get(0));
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         assertThat(candidateInDb.getName(), is(candidate.getName()));

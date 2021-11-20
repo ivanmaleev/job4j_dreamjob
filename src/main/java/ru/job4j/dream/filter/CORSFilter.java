@@ -18,7 +18,7 @@ public class CORSFilter implements Filter {
 
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-        if (request.getMethod().equals("OPTIONS")) {
+        if (request.getMethod().equals("GET")) {
             resp.setStatus(HttpServletResponse.SC_ACCEPTED);
             return;
         }

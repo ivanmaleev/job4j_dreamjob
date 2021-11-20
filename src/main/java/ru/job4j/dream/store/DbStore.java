@@ -104,7 +104,9 @@ public class DbStore implements Store {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "SELECT * FROM post where created >= 'today'")
+                     "SELECT * FROM post "
+                             + "where created between (current_timestamp - interval '24 hour') "
+                             + "and current_timestamp")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
@@ -135,8 +137,8 @@ public class DbStore implements Store {
                     candidates.add(new Candidate(it.getInt("id"),
                             it.getString("name"),
                             it.getString("filename"),
-                            it.getInt("city_id"),
-                            it.getString("cityname"),
+                            new City(it.getInt("city_id"),
+                                    it.getString("cityname")),
                             it.getTimestamp("created")));
                 }
             }
@@ -151,17 +153,19 @@ public class DbStore implements Store {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "SELECT cand.id, cand.name, cand.filename, "
-                             + "cand.city_id, c.name as cityname from "
+                             + "cand.city_id, c.name as cityname, cand.created from "
                              + "candidate as cand left join city as c "
-                             + "on cand.city_id = c.id where created >= 'today'")
+                             + "on cand.city_id = c.id where created between "
+                             + "(current_timestamp - interval '24 hour') and current_timestamp")
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     candidates.add(new Candidate(it.getInt("id"),
                             it.getString("name"),
                             it.getString("filename"),
-                            it.getInt("city_id"),
-                            it.getString("cityname")));
+                            new City(it.getInt("city_id"),
+                                    it.getString("cityname")),
+                            it.getTimestamp("created")));
                 }
             }
         } catch (Exception e) {
@@ -196,7 +200,7 @@ public class DbStore implements Store {
         ) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getFileName());
-            ps.setInt(3, candidate.getCityID());
+            ps.setInt(3, candidate.getCity().getId());
             ps.setInt(4, candidate.getId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
@@ -212,12 +216,13 @@ public class DbStore implements Store {
     private void createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "INSERT INTO candidate(name, filename, city_id) VALUES (?, ?, ?)",
+                     "INSERT INTO candidate(name, filename, city_id, created) VALUES (?, ?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getFileName());
-            ps.setInt(3, candidate.getCityID());
+            ps.setInt(3, candidate.getCity().getId());
+            ps.setTimestamp(4, candidate.getCreated());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -304,8 +309,8 @@ public class DbStore implements Store {
                     return new Candidate(it.getInt("id"),
                             it.getString("name"),
                             it.getString("filename"),
-                            it.getInt("city_id"),
-                            it.getString("cityname"),
+                            new City(it.getInt("city_id"),
+                                    it.getString("cityname")),
                             it.getTimestamp("created"));
                 }
             }
