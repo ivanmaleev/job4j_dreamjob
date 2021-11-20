@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
-import ru.job4j.dream.model.Post;
 import ru.job4j.dream.store.DbStore;
 
 import javax.servlet.ServletException;
@@ -51,7 +50,7 @@ public class CandidateServletTest {
         assertThat(candidate, notNullValue());
     }
 
-    @After
+    @Before
     public void refreshDB() {
         try (PreparedStatement statement = connection.prepareStatement(
                 "ALTER TABLE candidate ALTER COLUMN id RESTART WITH 1; " +

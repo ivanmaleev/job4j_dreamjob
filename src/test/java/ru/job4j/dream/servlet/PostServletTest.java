@@ -50,7 +50,7 @@ public class PostServletTest {
         assertThat(post, notNullValue());
     }
 
-    @After
+    @Before
     public void refreshDB() {
         try (PreparedStatement statement = connection.prepareStatement(
                 "ALTER TABLE post ALTER COLUMN id RESTART WITH 1; " +
