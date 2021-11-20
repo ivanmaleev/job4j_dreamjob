@@ -5,6 +5,11 @@ create TABLE if not exists post (
    created timestamp
 );
 
+create TABLE if not exists CITY (
+   id SERIAL PRIMARY KEY,
+   name TEXT
+);
+
 create TABLE if not exists candidate (
    id SERIAL PRIMARY KEY,
    name TEXT,
@@ -20,7 +25,6 @@ create TABLE if not exists users (
    password TEXT
 );
 
-create TABLE if not exists city (
-   id SERIAL PRIMARY KEY,
-   name TEXT
-);
+INSERT INTO city(name) VALUES ('Moscow');
+INSERT INTO city(name) VALUES ('S-Petersburg');
+INSERT INTO city(name) VALUES ('Krasnoyarsk');

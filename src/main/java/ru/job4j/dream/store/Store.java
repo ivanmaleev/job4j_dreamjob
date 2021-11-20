@@ -5,16 +5,16 @@ import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface Store {
-    Collection<Post> findAllPosts();
+    List<Post> findAllPosts();
 
-    Collection<Post> findAllTodayPosts();
+    List<Post> findAllTodayPosts();
 
-    Collection<Candidate> findAllCandidates();
+    List<Candidate> findAllCandidates();
 
-    Collection<Candidate> findAllTodayCandidates();
+    List<Candidate> findAllTodayCandidates();
 
     void savePost(Post post);
 
@@ -34,7 +34,7 @@ public interface Store {
 
     User findUserByEmail(String email);
 
-    Collection<City> findAllCities();
+    List<City> findAllCities();
 
     City findCityById(int id);
 

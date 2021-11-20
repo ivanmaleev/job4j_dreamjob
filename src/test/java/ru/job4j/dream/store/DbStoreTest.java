@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
+import ru.job4j.dream.model.City;
 import ru.job4j.dream.model.Post;
 
 import java.sql.Connection;
@@ -89,6 +90,8 @@ public class DbStoreTest {
     public void whenFindAllCandidates() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
+        List<City> allCities = store.findAllCities();
+        candidate.setCityID(allCities.get(0).getId());
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         Collection<Candidate> colCandidates = List.of(candidateInDb);
@@ -100,6 +103,8 @@ public class DbStoreTest {
     public void whenCreateCandidates() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
+        List<City> allCities = store.findAllCities();
+        candidate.setCityID(allCities.get(0).getId());
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         assertThat(candidateInDb.getName(), is(candidate.getName()));
@@ -109,6 +114,8 @@ public class DbStoreTest {
     public void whenUpdateCandidate() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
+        List<City> allCities = store.findAllCities();
+        candidate.setCityID(allCities.get(0).getId());
         store.saveCandidate(candidate);
         candidate.setName("Java Job 1");
         store.saveCandidate(candidate);
@@ -120,6 +127,8 @@ public class DbStoreTest {
     public void whenRemoveCandidate() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
+        List<City> allCities = store.findAllCities();
+        candidate.setCityID(allCities.get(0).getId());
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         store.removeCandidate(candidateInDb.getId());
@@ -131,6 +140,8 @@ public class DbStoreTest {
     public void whenFindCandidateById() {
         Store store = DbStore.instOf();
         Candidate candidate = new Candidate(0, "Java Job");
+        List<City> allCities = store.findAllCities();
+        candidate.setCityID(allCities.get(0).getId());
         store.saveCandidate(candidate);
         Candidate candidateInDb = store.findCandidateById(candidate.getId());
         assertThat(candidateInDb.getName(), is(candidate.getName()));

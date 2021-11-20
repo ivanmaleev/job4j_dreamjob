@@ -14,7 +14,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
 
@@ -81,7 +80,7 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Collection<Post> findAllPosts() {
+    public List<Post> findAllPosts() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post")
@@ -101,7 +100,7 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Collection<Post> findAllTodayPosts() {
+    public List<Post> findAllTodayPosts() {
         List<Post> posts = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
@@ -122,7 +121,7 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Collection<Candidate> findAllCandidates() {
+    public List<Candidate> findAllCandidates() {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
@@ -147,7 +146,7 @@ public class DbStore implements Store {
         return candidates;
     }
 
-    public Collection<Candidate> findAllTodayCandidates() {
+    public List<Candidate> findAllTodayCandidates() {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
@@ -213,13 +212,12 @@ public class DbStore implements Store {
     private void createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
-                     "INSERT INTO candidate(name, filename, city_id, created) VALUES (?, ?, ?, ?)",
+                     "INSERT INTO candidate(name, filename, city_id) VALUES (?, ?, ?)",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
             ps.setString(2, candidate.getFileName());
             ps.setInt(3, candidate.getCityID());
-            ps.setTimestamp(4, candidate.getCreated());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -398,7 +396,7 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Collection<City> findAllCities() {
+    public List<City> findAllCities() {
         List<City> cities = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM city")
